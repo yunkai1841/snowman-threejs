@@ -1,19 +1,14 @@
-# Three.js Vite Template with TypeScript
+# snowman threejs
+![Progress Badge](https://img.shields.io/badge/progress-WIP-yellow)
 
-Three.js + Vite + TypeScript starter
+
+An assignment for Computer graphics class
+
+This repository start from template
+[Three.js + Vite + TypeScript starter](https://github.com/pachoclo/vite-threejs-ts-template)
 
 - [Demo](https://vite-threejs-ts-template.vercel.app/)
 - [Jump to CLI commands](#cli-commands)
-
-## Copy (clone without git history)
-
-```shell
-npx degit pachoclo/vite-threejs-ts-template threejs-project
-```
-
----
-<img width="796" alt="screenshot" src="https://github.com/pachoclo/vite-threejs-ts-template/assets/3608140/4b377045-8be5-4021-8cb8-84346a23f680">
----
 
 ## Stuff included in the `scene.ts`
 
@@ -49,6 +44,7 @@ npx degit pachoclo/vite-threejs-ts-template threejs-project
 
 Installation
 
+Require [nodejs](https://nodejs.org/en)
 ```bash
 npm i
 ```
