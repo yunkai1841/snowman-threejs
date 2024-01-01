@@ -4,6 +4,7 @@ import {
   AxesHelper,
   BoxGeometry,
   Clock,
+  DirectionalLight,
   GridHelper,
   LoadingManager,
   Mesh,
@@ -17,16 +18,17 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
-import { DragControls } from "three/examples/jsm/controls/DragControls";
+// import { DragControls } from "three/examples/jsm/controls/DragControls";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
-import * as animations from "./helpers/animations";
+// import * as animations from "./helpers/animations";
 import { toggleFullScreen } from "./helpers/fullscreen";
 import { resizeRendererToDisplaySize } from "./helpers/responsiveness";
 import "./style.css";
 import SnowMan from "./components/snowman";
 import Sky from "./components/sky";
 import Ground from "./components/ground";
+import Snowflakes from "./components/snowflakes";
 
 const CANVAS_ID = "scene";
 
@@ -35,18 +37,19 @@ let renderer: WebGLRenderer;
 let scene: Scene;
 let loadingManager: LoadingManager;
 let ambientLight: AmbientLight;
-let pointLight: PointLight;
+let directionalLight: DirectionalLight;
 let cube: Mesh;
+let snowflakes: Snowflakes;
 let camera: PerspectiveCamera;
 let cameraControls: OrbitControls;
-let dragControls: DragControls;
+// let dragControls: DragControls;
 let axesHelper: AxesHelper;
 let pointLightHelper: PointLightHelper;
 let clock: Clock;
 let stats: Stats;
 let gui: GUI;
 
-const animation = { enabled: false, play: true };
+// const animation = { enabled: false, play: true };
 
 init();
 animate();
@@ -84,16 +87,10 @@ function init() {
   // ===== 💡 LIGHTS =====
   {
     ambientLight = new AmbientLight("white", 0.4);
-    pointLight = new PointLight("#ffdca8", 1.2, 100);
-    pointLight.position.set(-2, 3, 3);
-    pointLight.castShadow = true;
-    pointLight.shadow.radius = 4;
-    pointLight.shadow.camera.near = 0.5;
-    pointLight.shadow.camera.far = 4000;
-    pointLight.shadow.mapSize.width = 2048;
-    pointLight.shadow.mapSize.height = 2048;
+    directionalLight = new DirectionalLight("white", 0.9);
+    directionalLight.position.set(0, 50, 30);
     scene.add(ambientLight);
-    scene.add(pointLight);
+    scene.add(directionalLight);
   }
 
   // ===== 📦 OBJECTS =====
@@ -125,11 +122,13 @@ function init() {
     const snowman = new SnowMan();
     const sky = new Sky();
     const ground = new Ground();
+    snowflakes = new Snowflakes(1000);
 
     // scene.add(cube);
     // scene.add(plane);
     scene.add(snowman);
     scene.add(sky, ground);
+    scene.add(snowflakes);
   }
 
   // ===== 🎥 CAMERA =====
@@ -152,7 +151,8 @@ function init() {
     cameraControls.autoRotate = false;
     cameraControls.update();
 
-    dragControls = new DragControls([cube], camera, renderer.domElement);
+    // TODO: feature snowman drag controls
+    /*dragControls = new DragControls( [cube], camera, renderer.domElement);
     dragControls.addEventListener("hoveron", (event) => {
       event.object.material.emissive.set("orange");
     });
@@ -173,7 +173,7 @@ function init() {
       event.object.material.opacity = 1;
       event.object.material.needsUpdate = true;
     });
-    dragControls.enabled = false;
+    dragControls.enabled = false; */
 
     // Full screen
     window.addEventListener("dblclick", (event) => {
@@ -185,18 +185,18 @@ function init() {
 
   // ===== 🪄 HELPERS =====
   {
-    axesHelper = new AxesHelper(4);
+/*     axesHelper = new AxesHelper(4);
     axesHelper.visible = false;
     scene.add(axesHelper);
 
-    pointLightHelper = new PointLightHelper(pointLight, undefined, "orange");
+    pointLightHelper = new PointLightHelper(directionalLight, undefined, "orange");
     pointLightHelper.visible = false;
     scene.add(pointLightHelper);
 
     const gridHelper = new GridHelper(20, 20, "teal", "darkgray");
     gridHelper.position.y = -0.01;
     scene.add(gridHelper);
-  }
+ */  }
 
   // ===== 📈 STATS & CLOCK =====
   {
@@ -254,12 +254,12 @@ function init() {
     controlsFolder.add(dragControls, "enabled").name("drag controls");
  */
     const lightsFolder = gui.addFolder("Lights");
-    lightsFolder.add(pointLight, "visible").name("point light");
+    lightsFolder.add(directionalLight, "visible").name("directional light");
     lightsFolder.add(ambientLight, "visible").name("ambient light");
 
-    const helpersFolder = gui.addFolder("Helpers");
+/*     const helpersFolder = gui.addFolder("Helpers");
     helpersFolder.add(axesHelper, "visible").name("axes");
-    helpersFolder.add(pointLightHelper, "visible").name("pointLight");
+    helpersFolder.add(pointLightHelper, "visible").name("pointLight"); */
 
     const cameraFolder = gui.addFolder("Camera");
     cameraFolder.add(cameraControls, "autoRotate");
@@ -290,10 +290,12 @@ function animate() {
 
   stats.update();
 
-  if (animation.enabled && animation.play) {
-    animations.rotate(cube, clock, Math.PI / 3);
-    animations.bounce(cube, clock, 1, 0.5, 0.5);
-  }
+  // if (animation.enabled && animation.play) {
+  //   animations.rotate(cube, clock, Math.PI / 3);
+  //   animations.bounce(cube, clock, 1, 0.5, 0.5);
+  // }
+
+  snowflakes.update(clock);
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
