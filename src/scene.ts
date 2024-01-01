@@ -25,6 +25,8 @@ import { toggleFullScreen } from "./helpers/fullscreen";
 import { resizeRendererToDisplaySize } from "./helpers/responsiveness";
 import "./style.css";
 import SnowMan from "./components/snowman";
+import Sky from "./components/sky";
+import Ground from "./components/ground";
 
 const CANVAS_ID = "scene";
 
@@ -121,10 +123,13 @@ function init() {
     plane.receiveShadow = true;
 
     const snowman = new SnowMan();
+    const sky = new Sky();
+    const ground = new Ground();
 
     // scene.add(cube);
-    scene.add(plane);
+    // scene.add(plane);
     scene.add(snowman);
+    scene.add(sky, ground);
   }
 
   // ===== 🎥 CAMERA =====
@@ -136,6 +141,7 @@ function init() {
       1000
     );
     camera.position.set(60, 50, 200);
+    camera.lookAt(scene.position);
   }
 
   // ===== 🕹️ CONTROLS =====

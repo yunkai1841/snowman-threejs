@@ -4,10 +4,12 @@
 
 An assignment for Computer graphics class
 
+Migrated from original Repository [kojun1108/Melting-snowman](https://github.com/kojun1108/Melting-snowman)
+
 This repository start from template
 [Three.js + Vite + TypeScript starter](https://github.com/pachoclo/vite-threejs-ts-template)
 
-- [Demo](https://vite-threejs-ts-template.vercel.app/)
+- Demo: WIP
 - [Jump to CLI commands](#cli-commands)
 
 ## Stuff included in the `scene.ts`
