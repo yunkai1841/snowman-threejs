@@ -1,11 +1,11 @@
 import GUI from "lil-gui";
 import {
   AmbientLight,
-  AxesHelper,
+  // AxesHelper,
   BoxGeometry,
   Clock,
   DirectionalLight,
-  GridHelper,
+  // GridHelper,
   LoadingManager,
   Mesh,
   MeshLambertMaterial,
@@ -13,8 +13,8 @@ import {
   PCFSoftShadowMap,
   PerspectiveCamera,
   PlaneGeometry,
-  PointLight,
-  PointLightHelper,
+  // PointLight,
+  // PointLightHelper,
   Scene,
   WebGLRenderer,
 } from "three";
@@ -43,8 +43,8 @@ let snowflakes: Snowflakes;
 let camera: PerspectiveCamera;
 let cameraControls: OrbitControls;
 // let dragControls: DragControls;
-let axesHelper: AxesHelper;
-let pointLightHelper: PointLightHelper;
+// let axesHelper: AxesHelper;
+// let pointLightHelper: PointLightHelper;
 let clock: Clock;
 let stats: Stats;
 let gui: GUI;

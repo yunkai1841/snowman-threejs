@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:gh-pages": "tsc && vite build --base=/snowman-threejs/",
     "preview": "vite preview"
   },
   "devDependencies": {
