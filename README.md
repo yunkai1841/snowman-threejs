@@ -1,5 +1,6 @@
 # snowman threejs
 ![Progress Badge](https://img.shields.io/badge/progress-WIP-yellow)
+![GitHub deployments](https://img.shields.io/github/deployments/yunkai1841/snowman-threejs/github-pages?label=GitHub%20Pages&link=https%3A%2F%2Fyunkai1841.github.io%2Fsnowman-threejs%2F)
 
 
 An assignment for Computer graphics class
