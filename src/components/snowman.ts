@@ -2,6 +2,7 @@ import {
   Mesh,
   CylinderGeometry,
   MeshLambertMaterial,
+  MeshStandardMaterial,
   SphereGeometry,
   Group,
   MathUtils,
@@ -17,9 +18,9 @@ export default class SnowMan extends Group {
     const buttonGeometry = new BoxGeometry(5, 5, 5);
 
     //奥行きと影があり、光沢感のないマテリアル({ color: 0xから始まる16進数カラー})
-    const hatMaterial = new MeshLambertMaterial({ color: 0x333333 });
-    const headMaterial = new MeshLambertMaterial({ color: 0xffffff });
-    const buttonMaterial = new MeshLambertMaterial({ color: 0x228b22 });
+    const hatMaterial = new MeshStandardMaterial({ color: 0x333333 });
+    const headMaterial = new MeshStandardMaterial({ color: 0xffffff });
+    const buttonMaterial = new MeshStandardMaterial({ color: 0x228b22 });
 
     //3Dを2Dの手書き風にできるマテリアル({ color: 0xから始まる16進数カラー})
     const eyeMaterial = new MeshToonMaterial({ color: 0x000000 });
@@ -33,7 +34,7 @@ export default class SnowMan extends Group {
 
     const hat_line = new Mesh(
       new CylinderGeometry(26, 25, 20, 30),
-      new MeshLambertMaterial({ color: 0xe60033 })
+      new MeshStandardMaterial({ color: 0xe60033 })
     );
     hat_line.position.set(0, 35, 0);
 
@@ -58,7 +59,7 @@ export default class SnowMan extends Group {
 
     const nose = new Mesh(
       new SphereGeometry(5, 30, 20),
-      new MeshLambertMaterial({ color: 0xed9121 })
+      new MeshStandardMaterial({ color: 0xed9121 })
     );
     nose.position.set(3, 10, 35);
 
@@ -73,7 +74,7 @@ export default class SnowMan extends Group {
 
     //腕
     const armGeometry = new CylinderGeometry(3, 3, 35, 32); //(下,上,長さ,横)
-    const armMaterial = new MeshLambertMaterial({ color: 0x8b4513 }); // 茶色
+    const armMaterial = new MeshStandardMaterial({ color: 0x8b4513 }); // 茶色
 
     const leftArm = new Mesh(armGeometry, armMaterial);
     leftArm.position.set(-55, -30, 15);
