@@ -3,7 +3,7 @@ import {
   AmbientLight,
   // AxesHelper,
   BoxGeometry,
-  Clock,
+  //Clock,
   DirectionalLight,
   // GridHelper,
   LoadingManager,
@@ -39,7 +39,7 @@ let loadingManager: LoadingManager;
 let ambientLight: AmbientLight;
 let directionalLight: DirectionalLight;
 let cube: Mesh;
-let snowflakes: Snowflakes;
+let snowfalls: Snowfalls;
 let camera: PerspectiveCamera;
 let cameraControls: OrbitControls;
 // let dragControls: DragControls;
@@ -122,13 +122,13 @@ function init() {
     const snowman = new SnowMan();
     const sky = new Sky();
     const ground = new Ground();
-    snowflakes = new Snowflakes(1000);
+    snowfalls = new Snowfalls();
 
     // scene.add(cube);
     // scene.add(plane);
     scene.add(snowman);
     scene.add(sky, ground);
-    scene.add(snowflakes);
+    scene.add(snowfalls);
   }
 
   // ===== 🎥 CAMERA =====
@@ -289,14 +289,12 @@ function animate() {
   requestAnimationFrame(animate);
 
   stats.update();
-
+ 
   // if (animation.enabled && animation.play) {
   //   animations.rotate(cube, clock, Math.PI / 3);
   //   animations.bounce(cube, clock, 1, 0.5, 0.5);
   // }
-
-  snowfalls.update();
-
+snowfalls.update();
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
