@@ -28,7 +28,7 @@ import "./style.css";
 import SnowMan from "./components/snowman";
 import Sky from "./components/sky";
 import Ground from "./components/ground";
-import Snowflakes from "./components/snowflakes";
+import Snowfalls from "./components/snowfall";
 
 const CANVAS_ID = "scene";
 
@@ -45,7 +45,7 @@ let cameraControls: OrbitControls;
 // let dragControls: DragControls;
 // let axesHelper: AxesHelper;
 // let pointLightHelper: PointLightHelper;
-let clock: Clock;
+//let clock: Clock;
 let stats: Stats;
 let gui: GUI;
 
@@ -200,7 +200,7 @@ function init() {
 
   // ===== 📈 STATS & CLOCK =====
   {
-    clock = new Clock();
+    //clock = new Clock();
     stats = new Stats();
     document.body.appendChild(stats.dom);
   }
@@ -295,7 +295,7 @@ function animate() {
   //   animations.bounce(cube, clock, 1, 0.5, 0.5);
   // }
 
-  snowflakes.update(clock);
+  snowfalls.update();
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
