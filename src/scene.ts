@@ -294,7 +294,8 @@ function animate() {
   //   animations.rotate(cube, clock, Math.PI / 3);
   //   animations.bounce(cube, clock, 1, 0.5, 0.5);
   // }
-snowfalls.update();
+  snowfalls.update();
+
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
