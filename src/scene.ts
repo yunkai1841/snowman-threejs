@@ -48,6 +48,7 @@ let cameraControls: OrbitControls;
 //let clock: Clock;
 let stats: Stats;
 let gui: GUI;
+let snowman: SnowMan;
 
 // const animation = { enabled: false, play: true };
 
@@ -119,7 +120,7 @@ function init() {
     plane.rotateX(Math.PI / 2);
     plane.receiveShadow = true;
 
-    const snowman = new SnowMan();
+    snowman = new SnowMan();
     const sky = new Sky();
     const ground = new Ground();
     snowfalls = new Snowfalls();
@@ -287,9 +288,8 @@ function init() {
 
 function animate() {
   requestAnimationFrame(animate);
-
+  snowman.melt();
   stats.update();
- 
   // if (animation.enabled && animation.play) {
   //   animations.rotate(cube, clock, Math.PI / 3);
   //   animations.bounce(cube, clock, 1, 0.5, 0.5);
