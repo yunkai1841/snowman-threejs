@@ -1,16 +1,17 @@
-import { BackSide, BoxGeometry, Mesh, ShaderMaterial } from "three";
+import { BackSide, BoxGeometry, Mesh, ShaderMaterial,Vector3 } from "three";
 
 export default class Sky extends Mesh {
+   private count: number = 0;
   constructor() {
     const customShader = {
       uniforms: {
-        fTurbidity: { value: 10 },
+        fTurbidity: { value: 10},
         fRayleighWeight: { value: 7 },
         fMieWeight: { value: 0.05 },
         fMieG: { value: 0.9 },
-        fSunPositionX: { value: 1.5 },
-        fSunPositionY: { value: 0.05 },
-        fSunPositionZ: { value: 1.0 },
+        fSunPositionX: { value: 0 },
+        fSunPositionY: { value: 0 },
+        fSunPositionZ: { value: 0 },
       },
       vertexShader: `
         varying vec3 worldPos;
@@ -129,6 +130,7 @@ export default class Sky extends Mesh {
         }
       `,
     };
+
     const geometry = new BoxGeometry(1000, 500, 500);
     const material = new ShaderMaterial({
       ...customShader,
@@ -136,4 +138,32 @@ export default class Sky extends Mesh {
     });
     super(geometry, material);
   }
+
+  updateSunPosition() {
+  const material = this.material as ShaderMaterial;
+
+    if(material.uniforms.fSunPositionX.value==0 && material.uniforms.fSunPositionY.value==0 && this.count==0){
+      this.count = 200;
+      material.uniforms.fSunPositionX.value = -5;
+      material.uniforms.fSunPositionY.value = -1;
+      material.uniforms.fSunPositionZ.value = 1;
+    }else if(material.uniforms.fSunPositionX.value==-5 && material.uniforms.fSunPositionY.value<1){
+      material.uniforms.fSunPositionY.value+=1;
+    }else if(material.uniforms.fSunPositionX.value<5 && material.uniforms.fSunPositionY.value==1){
+      material.uniforms.fSunPositionX.value+=0.015;
+    }else if(material.uniforms.fSunPositionX.value==5 && material.uniforms.fSunPositionY.value>-1){
+      material.uniforms.fSunPositionY.value-=1;
+    }else{
+      material.uniforms.fSunPositionX.value = 0;
+      material.uniforms.fSunPositionY.value = 0;
+      material.uniforms.fSunPositionZ.value = 0;
+      this.count -=1;
+    }
+ const sunDirection = new Vector3(
+    material.uniforms.fSunPositionX.value,
+    material.uniforms.fSunPositionY.value,
+    material.uniforms.fSunPositionZ.value
+  ).normalize();
+  return sunDirection;
+}
 }
