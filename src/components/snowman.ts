@@ -153,33 +153,34 @@ Fall(item: Mesh) {
 
 
   melt() {
+    const speed = 0.0005;
     const { hat, hat_line, hat_collar,head,right_eye,left_eye,nose,body,button_first,button_second,leftArm,rightArm} = this;
-    head.geometry = new SphereGeometry(40, Math.max(3, this.h1 -= 0.1), Math.max(3, this.h2 -= 0.1));
-    body.geometry = new SphereGeometry(50, Math.max(3, this.b1 -= 0.1), Math.max(3, this.b2 -= 0.1));
-    head.scale.y= Math.max(0, this.head.scale.y - 0.001);
-    head.scale.x = Math.max(0, this.head.scale.x - 0.001);
-    head.scale.z = Math.max(0, this.head.scale.z - 0.001);
-    body.scale.x = Math.max(0, this.body.scale.x - 0.001);
-    body.scale.y = Math.max(0, this.body.scale.y - 0.001);
-    body.scale.z = Math.max(0, this.body.scale.z - 0.001);
-    head.position.y -= 0.1;
-    body.position.y -= 0.03;
+    head.geometry = new SphereGeometry(40, Math.max(3, this.h1 -= speed*100), Math.max(3, this.h2 -= speed*100));
+    body.geometry = new SphereGeometry(50, Math.max(3, this.b1 -= speed*100), Math.max(3, this.b2 -= speed*100));
+    head.scale.y= Math.max(0, this.head.scale.y - speed);
+    head.scale.x = Math.max(0, this.head.scale.x - speed);
+    head.scale.z = Math.max(0, this.head.scale.z - speed);
+    body.scale.x = Math.max(0, this.body.scale.x - speed);
+    body.scale.y = Math.max(0, this.body.scale.y - speed);
+    body.scale.z = Math.max(0, this.body.scale.z - speed);
+    head.position.y -= speed*100;
+    body.position.y -= speed*30;
     if(hat.position.y>40){
       [hat, hat_line, hat_collar].forEach(obj => {
-        obj.position.y -= 0.07;
+        obj.position.y -= speed*70;
       });
     }else{
       this.Hat();
     }
     if(leftArm.position.y>-45){
-      leftArm.position.y-=0.1;
-      rightArm.position.y-=0.1;
+      leftArm.position.y-=speed*100;
+      rightArm.position.y-=speed*100;
     }else{
       this.Arm();
     }
-    if(head.position.y>-30){
+    if(head.position.y>-25){
       [right_eye, left_eye, nose].forEach(obj => {
-        obj.position.y -= 0.1;
+        obj.position.y -= speed*100;
       });
     }else{
       this.Fall(this.right_eye);
@@ -187,8 +188,8 @@ Fall(item: Mesh) {
       this.Fall(this.nose);
     }
     if(button_first.position.y>-50){
-      button_first.position.y-=0.1;
-      button_second.position.y-=0.1;
+      button_first.position.y-=speed*100;
+      button_second.position.y-=speed*100;
     }else{
     this.Fall(button_first);
     this.Fall(button_second);
@@ -196,4 +197,5 @@ Fall(item: Mesh) {
  
   }
 }
+
 
