@@ -49,6 +49,7 @@ let cameraControls: OrbitControls;
 let stats: Stats;
 let gui: GUI;
 let snowman: SnowMan;
+let sky: Sky;
 
 // const animation = { enabled: false, play: true };
 
@@ -121,7 +122,7 @@ function init() {
     plane.receiveShadow = true;
 
     snowman = new SnowMan();
-    const sky = new Sky();
+    sky = new Sky();
     const ground = new Ground();
     snowfalls = new Snowfalls();
 
@@ -295,6 +296,7 @@ function animate() {
   //   animations.bounce(cube, clock, 1, 0.5, 0.5);
   // }
   snowfalls.update();
+  directionalLight.position.copy(sky.updateSunPosition());
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
