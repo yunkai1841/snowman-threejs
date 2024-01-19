@@ -1,0 +1,98 @@
+import {
+    Mesh,
+    SphereGeometry,
+    ConeGeometry,
+    Group,
+    CylinderGeometry,
+    MeshLambertMaterial,
+  } from "three";
+
+//trunk
+class Trunk extends Mesh {
+    constructor(){
+        const trunkGeometry = new CylinderGeometry(5, 20, 500, 50);
+        const trunkMaterial = new MeshLambertMaterial({ color: 0xbb6600 }); 
+        super(trunkGeometry, trunkMaterial);
+    }
+}
+
+//leaf
+class Leaf extends Mesh {
+    constructor(level:number){
+        if (level==1) {
+            const leafGeometry = new ConeGeometry(80, 350, 100);
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            super(leafGeometry, leafMaterial);
+        } else if (level==2) {
+            const leafGeometry = new ConeGeometry(80, 300, 100);
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            super(leafGeometry, leafMaterial);
+        } else {
+            const leafGeometry = new ConeGeometry(80, 250, 100);
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            super(leafGeometry, leafMaterial);
+        }
+    }
+}
+
+//snow
+class Snow extends Mesh {
+    constructor(){
+        const leafGeometry = new SphereGeometry(20, 20, 100);
+        const leafMaterial = new MeshLambertMaterial({ color: 0xf0f8ff });
+        super(leafGeometry, leafMaterial);
+    }
+}
+
+export default class Trees extends Group {
+    private treeNum: number = 50;
+    constructor() {
+        super();
+        const positions : number[][] = new Array();
+        for (let i = 0; i < this.treeNum; i++) {
+            positions[i] = new Array();
+        }
+        for (let i=0; i<this.treeNum; i++) {
+            positions[i].push(
+                Math.random() * 3000 - 1500,
+                100,
+                Math.random() * 3000 - 1500,
+            );
+        }
+        for (let i=0; i<this.treeNum; i++) {
+            var x:number = positions[i][0];
+            var y:number = positions[i][1];
+            var z:number = positions[i][2];
+
+            //trunk
+            var trunk = new Trunk();
+            trunk.position.set(x, y, z);
+
+            //leaf
+            var leaf1 = new Leaf(1);
+            leaf1.position.set(x, y+100, z);
+            var leaf2 = new Leaf(2);
+            leaf2.position.set(x, y+150, z);
+            var leaf3 = new Leaf(3);
+            leaf3.position.set(x, y+200, z);
+
+            //snow
+            var snow1 = new Snow();
+            snow1.position.set(x+20, y+200, z+20);
+            var snow2 = new Snow();
+            snow2.position.set(x-35, y+150, z+35);
+            var snow3 = new Snow();
+            snow3.position.set(x+40, y+50, z-40);
+
+            this.add(
+                trunk,
+                leaf1,
+                leaf2,
+                leaf3,
+                snow1,
+                snow2,
+                snow3,
+            );
+        }
+    }
+}

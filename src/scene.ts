@@ -29,6 +29,7 @@ import SnowMan from "./components/snowman";
 import Sky from "./components/sky";
 import Ground from "./components/ground";
 import Snowfalls from "./components/snowfall";
+import Forest from "./components/forest";
 
 const CANVAS_ID = "scene";
 
@@ -50,7 +51,7 @@ let stats: Stats;
 let gui: GUI;
 let snowman: SnowMan;
 let sky: Sky;
-
+let forest: Forest;
 // const animation = { enabled: false, play: true };
 
 init();
@@ -125,11 +126,13 @@ function init() {
     sky = new Sky();
     const ground = new Ground();
     snowfalls = new Snowfalls();
+    forest = new Forest();
 
     // scene.add(cube);
     // scene.add(plane);
     scene.add(snowman);
     scene.add(sky, ground);
+    scene.add(forest);
     scene.add(snowfalls);
   }
 
