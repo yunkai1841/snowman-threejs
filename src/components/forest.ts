@@ -9,7 +9,7 @@ import {
     TextureLoader,
   } from "three";
 
-//trunk
+//trunk: https://3dtextures.me/2022/02/25/bark-pine-003/
 import trunkbase from '../assets/images/Bark_Pine_003_SD/Bark_Pine_003_BaseColor.jpg';
 import trunknormal from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Normal.jpg";
 import trunkheight from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Height.png";

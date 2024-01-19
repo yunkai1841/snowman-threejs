@@ -1,44 +1,39 @@
 import {
     Mesh,
-    SphereGeometry,
     ConeGeometry,
     Group,
     CylinderGeometry,
-    MeshLambertMaterial,
     TextureLoader,
     MeshStandardMaterial,
     PlaneGeometry,
-    BufferGeometry,
-    BufferAttribute,
     BoxGeometry,
-    Vector3,
   } from "three";
 
-//wall
+//wall: https://3dtextures.me/2021/03/26/stylized-bricks-001/
 import wallbase from '../assets/images/Stylized_Bricks_001_SD/Stylized_Bricks_001_basecolor.jpg';
 import wallnormal from "../assets/images/Stylized_Bricks_001_SD/Stylized_Bricks_001_normal.jpg";
 import wallheight from "../assets/images/Stylized_Bricks_001_SD/Stylized_Bricks_001_height.png";
 import wallrough from "../assets/images/Stylized_Bricks_001_SD/Stylized_Bricks_001_roughness.jpg";
 import wallam from "../assets/images/Stylized_Bricks_001_SD/Stylized_Bricks_001_ambientOcclusion.jpg";
-//poll
+//poll: https://3dtextures.me/2022/02/25/bark-pine-003/
 import pollbase from '../assets/images/Bark_Pine_003_SD/Bark_Pine_003_BaseColor.jpg';
 import pollnormal from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Normal.jpg";
 import pollheight from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Height.png";
 import pollrough from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Roughness.jpg";
 import pollam from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_AmbientOcclusion.jpg";
-//roof
+//roof: https://3dtextures.me/2019/11/06/roof-tiles-terracotta-003/
 import roofbase from '../assets/images/Roof_Tiles_Terracotta_003_SD/Roof_Tiles_Terracotta_003_basecolor.jpg';
 import roofnormal from "../assets/images/Roof_Tiles_Terracotta_003_SD/Roof_Tiles_Terracotta_003_normal.jpg";
 import roofheight from "../assets/images/Roof_Tiles_Terracotta_003_SD/Roof_Tiles_Terracotta_003_height.png";
 import roofrough from "../assets/images/Roof_Tiles_Terracotta_003_SD/Roof_Tiles_Terracotta_003_roughness.jpg";
 import roofam from "../assets/images/Roof_Tiles_Terracotta_003_SD/Roof_Tiles_Terracotta_003_ambientOcclusion.jpg";
-//chimney
+//chimney: https://3dtextures.me/2022/04/03/wall-stone-023/
 import chbase from '../assets/images/Wall_Stone_023_SD/Wall_Stone_023_BaseColor.jpg';
 import chnormal from "../assets/images/Wall_Stone_023_SD/Wall_Stone_023_Normal.jpg";
 import chheight from "../assets/images/Wall_Stone_023_SD/Wall_Stone_023_Height.png";
 import chrough from "../assets/images/Wall_Stone_023_SD/Wall_Stone_023_Roughness.jpg";
 import cham from "../assets/images/Wall_Stone_023_SD/Wall_Stone_023_AmbientOcclusion.jpg";
-
+//door: https://3dtextures.me/2020/05/29/wood-gate-fortified-003/
 import doorbase from '../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_basecolor.jpg';
 import doornormal from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_normal.jpg";
 import doorheight from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_height.png";
