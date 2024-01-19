@@ -157,7 +157,7 @@ class Chimney extends Mesh {
 export default class House extends Group {
     private x:number = 100;
     private y:number = 0;
-    private z:number = -200;
+    private z:number = -250;
     constructor() {
         super();
         //roof
