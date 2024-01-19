@@ -5,13 +5,36 @@ import {
     Group,
     CylinderGeometry,
     MeshLambertMaterial,
+    MeshStandardMaterial,
+    TextureLoader,
   } from "three";
+
+//trunk
+import trunkbase from '../assets/images/Bark_Pine_003_SD/Bark_Pine_003_BaseColor.jpg';
+import trunknormal from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Normal.jpg";
+import trunkheight from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Height.png";
+import trunkrough from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_Roughness.jpg";
+import trunkam from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_AmbientOcclusion.jpg";
 
 //trunk
 class Trunk extends Mesh {
     constructor(){
         const trunkGeometry = new CylinderGeometry(5, 20, 500, 50);
-        const trunkMaterial = new MeshLambertMaterial({ color: 0xbb6600 }); 
+        const textureLoader = new TextureLoader();
+        const baseTexture = textureLoader.load(trunkbase);
+        const normalMapTexture = textureLoader.load(trunknormal);
+        const heghitMapTexture = textureLoader.load(trunkheight);
+        const rouphMapTexture = textureLoader.load(trunkrough);
+        const ambientMapTexture = textureLoader.load(trunkam);
+        const trunkMaterial = new MeshStandardMaterial({
+            map: baseTexture,
+            normalMap: normalMapTexture,
+            displacementMap: heghitMapTexture,
+            displacementScale: 10,
+            roughnessMap: rouphMapTexture,
+            roughness: 0.5,
+            aoMap: ambientMapTexture,
+        }); 
         super(trunkGeometry, trunkMaterial);
     }
 }
