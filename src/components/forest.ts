@@ -44,15 +44,15 @@ class Leaf extends Mesh {
     constructor(level:number){
         if (level==1) {
             const leafGeometry = new ConeGeometry(80, 350, 100);
-            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f});
             super(leafGeometry, leafMaterial);
         } else if (level==2) {
             const leafGeometry = new ConeGeometry(80, 300, 100);
-            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f});
             super(leafGeometry, leafMaterial);
         } else {
             const leafGeometry = new ConeGeometry(80, 250, 100);
-            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f });
+            const leafMaterial = new MeshLambertMaterial({ color: 0x2f4f4f});
             super(leafGeometry, leafMaterial);
         }
     }
@@ -68,21 +68,30 @@ class Snow extends Mesh {
 }
 
 export default class Trees extends Group {
-    private treeNum: number = 50;
+    private treeNum: number = 100;
+    private noTreeField:number = 0.25;
+
     constructor() {
         super();
         const positions : number[][] = new Array();
         for (let i = 0; i < this.treeNum; i++) {
             positions[i] = new Array();
         }
+        var count:number = 0;
         for (let i=0; i<this.treeNum; i++) {
-            positions[i].push(
-                Math.random() * 3000 - 1500,
-                100,
-                Math.random() * 3000 - 1500,
-            );
+            var x = Math.random()*2-1;
+            var y = Math.random()*2-1;
+            if (x**2 + y**2 >= this.noTreeField) {
+                positions[i].push(
+                    x * 600,
+                    100,
+                    y * 600,
+                );
+                count += 1;
+            }
         }
-        for (let i=0; i<this.treeNum; i++) {
+ 
+        for (let i=0; i<count; i++) {
             var x:number = positions[i][0];
             var y:number = positions[i][1];
             var z:number = positions[i][2];

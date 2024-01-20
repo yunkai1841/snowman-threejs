@@ -127,17 +127,17 @@ function init() {
     snowman = new SnowMan();
     sky = new Sky();
     const ground = new Ground();
-    snowfalls = new Snowfalls();
     forest = new Forest();
     house = new House();
+    snowfalls = new Snowfalls();
 
     //scene.add(cube);
     // scene.add(plane);
     scene.add(snowman);
-    scene.add(sky, ground);
-    scene.add(forest);
-    scene.add(snowfalls);
     scene.add(house);
+    scene.add(forest);
+    scene.add(sky, ground);
+    scene.add(snowfalls);
   }
 
   // ===== 🎥 CAMERA =====

@@ -1,7 +1,6 @@
 import {
   Mesh,
   CylinderGeometry,
-  //MeshLambertMaterial,
   MeshStandardMaterial,
   SphereGeometry,
   Group,

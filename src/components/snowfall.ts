@@ -73,9 +73,9 @@ export default class Snowfalls extends Group {
     for (let j = 0; j < this.snowflakeNum; j++) {
       for (let i = 0; i < this.numSnowfalls; i++) {
         positions[j].push(
-          Math.random() * 600 - 300 + j * 50,
-          Math.random() * 600 - 300 + j * 50,
-          Math.random() * 600 - 300 + j * 50
+          Math.random() * 600 - 300,
+          Math.random() * 600 - 300,
+          Math.random() * 600 - 300
         );
       }
       var snowflake = new Snowfall(
