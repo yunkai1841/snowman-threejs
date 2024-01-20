@@ -7,6 +7,7 @@ import {
     MeshStandardMaterial,
     PlaneGeometry,
     BoxGeometry,
+    AdditiveBlending,
   } from "three";
 
 //wall: https://3dtextures.me/2021/03/26/stylized-bricks-001/
@@ -39,7 +40,8 @@ import doornormal from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fo
 import doorheight from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_height.png";
 import doorrough from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_roughness.jpg";
 import dooram from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortified_003_ambientOcclusion.jpg";
-
+//smoke
+import smokeColor from "../assets/images/smoke.jpeg";
   //Roof
   class Roof extends Mesh {
       constructor(){ 
@@ -154,6 +156,22 @@ class Chimney extends Mesh {
         super(geometry, material);
     }
 } 
+
+class Smoke extends Mesh {
+    constructor() {
+        const geometry = new PlaneGeometry(200, 200, 512, 512);
+        const textureLoader = new TextureLoader();
+        const baseTexture = textureLoader.load(smokeColor);
+        const material = new MeshStandardMaterial({
+            map: baseTexture,
+            roughness: 0.5,
+            depthTest:false,
+            blending:AdditiveBlending,
+            opacity:0.7,
+        });
+        super(geometry, material);
+    }
+}
 export default class House extends Group {
     private x:number = 100;
     private y:number = 0;
@@ -181,6 +199,9 @@ export default class House extends Group {
         //chimney
         const chimney = new Chimney();
         chimney.position.set(this.x + 80, this.y + 100, this.z + 80);
+        //smoke
+        const smoke = new Smoke();
+        smoke.position.set(this.x + 80,this.y + 300,this.z+80);
 
         this.add(
             roof,
@@ -191,6 +212,7 @@ export default class House extends Group {
             poll4,
             door,
             chimney,
+            smoke,
         );
         }
     }
