@@ -1,8 +1,6 @@
 import {
-  CircleGeometry,
   MathUtils,
   Mesh,
-  MeshLambertMaterial,
   MeshStandardMaterial,
   PlaneGeometry,
   TextureLoader,
