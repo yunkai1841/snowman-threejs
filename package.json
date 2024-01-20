@@ -12,10 +12,12 @@
   "devDependencies": {
     "@types/three": "^0.160.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.0.11"
   },
   "dependencies": {
+    "csv": "^6.3.6",
     "lil-gui": "^0.19.1",
-    "three": "^0.160.0"
+    "three": "^0.160.0",
+    "ts-node": "^10.9.2"
   }
 }
