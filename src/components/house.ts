@@ -8,6 +8,7 @@ import {
     PlaneGeometry,
     BoxGeometry,
     AdditiveBlending,
+    SubtractiveBlending,
   } from "three";
 
 //wall: https://3dtextures.me/2021/03/26/stylized-bricks-001/
@@ -164,9 +165,9 @@ class Smoke extends Mesh {
         const baseTexture = textureLoader.load(smokeColor);
         const material = new MeshStandardMaterial({
             map: baseTexture,
-            roughness: 0.5,
+            //roughness: 0.5,
             depthTest:false,
-            blending:AdditiveBlending,
+            blending:SubtractiveBlending,
             opacity:0.7,
         });
         super(geometry, material);
