@@ -7,7 +7,6 @@ import {
     MeshStandardMaterial,
     PlaneGeometry,
     BoxGeometry,
-    AdditiveBlending,
     SubtractiveBlending,
   } from "three";
 
