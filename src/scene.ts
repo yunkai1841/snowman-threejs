@@ -70,6 +70,7 @@ function init() {
     };
     loadingManager.onLoad = () => {
       console.log("loaded!");
+      canvas.classList.remove("loading");
     };
     loadingManager.onError = () => {
       console.log("❌ error while loading");
