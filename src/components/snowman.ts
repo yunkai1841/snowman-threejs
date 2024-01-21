@@ -29,6 +29,9 @@ export default class SnowMan extends Group {
   private h2: number = 20;
   private b1: number = 50;
   private b2: number = 50;
+
+  public speed: number = 0.5;
+
   constructor() {
     super();
     // mesh
@@ -152,8 +155,8 @@ export default class SnowMan extends Group {
     }
   }
 
-  melt() {
-    const speed = 0.0005;
+  update(deltaTime: number) {
+    const updateRatio = this.speed * 0.01 * deltaTime;
     const {
       hat,
       hat_line,
@@ -170,38 +173,38 @@ export default class SnowMan extends Group {
     } = this;
     head.geometry = new SphereGeometry(
       40,
-      Math.max(3, (this.h1 -= speed * 100)),
-      Math.max(3, (this.h2 -= speed * 100))
+      Math.max(3, (this.h1 -= updateRatio * 100)),
+      Math.max(3, (this.h2 -= updateRatio * 100))
     );
     body.geometry = new SphereGeometry(
       50,
-      Math.max(3, (this.b1 -= speed * 100)),
-      Math.max(3, (this.b2 -= speed * 100))
+      Math.max(3, (this.b1 -= updateRatio * 100)),
+      Math.max(3, (this.b2 -= updateRatio * 100))
     );
-    head.scale.y = Math.max(0, this.head.scale.y - speed);
-    head.scale.x = Math.max(0, this.head.scale.x - speed);
-    head.scale.z = Math.max(0, this.head.scale.z - speed);
-    body.scale.x = Math.max(0, this.body.scale.x - speed);
-    body.scale.y = Math.max(0, this.body.scale.y - speed);
-    body.scale.z = Math.max(0, this.body.scale.z - speed);
-    head.position.y -= speed * 100;
-    body.position.y -= speed * 30;
+    head.scale.y = Math.max(0, this.head.scale.y - updateRatio);
+    head.scale.x = Math.max(0, this.head.scale.x - updateRatio);
+    head.scale.z = Math.max(0, this.head.scale.z - updateRatio);
+    body.scale.x = Math.max(0, this.body.scale.x - updateRatio);
+    body.scale.y = Math.max(0, this.body.scale.y - updateRatio);
+    body.scale.z = Math.max(0, this.body.scale.z - updateRatio);
+    head.position.y -= updateRatio * 100;
+    body.position.y -= updateRatio * 30;
     if (hat.position.y > 40) {
       [hat, hat_line, hat_collar].forEach((obj) => {
-        obj.position.y -= speed * 70;
+        obj.position.y -= updateRatio * 70;
       });
     } else {
       this.Hat();
     }
     if (leftArm.position.y > -45) {
-      leftArm.position.y -= speed * 100;
-      rightArm.position.y -= speed * 100;
+      leftArm.position.y -= updateRatio * 100;
+      rightArm.position.y -= updateRatio * 100;
     } else {
       this.Arm();
     }
     if (head.position.y > -25) {
       [right_eye, left_eye, nose].forEach((obj) => {
-        obj.position.y -= speed * 100;
+        obj.position.y -= updateRatio * 100;
       });
     } else {
       this.Fall(this.right_eye);
@@ -209,8 +212,8 @@ export default class SnowMan extends Group {
       this.Fall(this.nose);
     }
     if (button_first.position.y > -50) {
-      button_first.position.y -= speed * 100;
-      button_second.position.y -= speed * 100;
+      button_first.position.y -= updateRatio * 100;
+      button_second.position.y -= updateRatio * 100;
     } else {
       this.Fall(button_first);
       this.Fall(button_second);

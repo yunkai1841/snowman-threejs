@@ -18,43 +18,35 @@ import png5 from "../assets/images/snowflake5.png";
 
 const snowpng = [png1, png2, png3, png4, png5];
 
-class Snowfall extends Points {
+class Snowflakes extends Points {
+  /**
+   * Snowflakes
+   */
+  private fallSpeed: number;
+  private yLowerBound: number;
   constructor(
     position: Float32Array,
-    snowpng: string,
-    count: number,
-    loadingManager?: LoadingManager
+    snowflakeMaterial: PointsMaterial,
+    fallSpeed: number = 0.2,
+    yLowerBound: number = -90,
   ) {
     const geometry = new BufferGeometry();
     geometry.setAttribute("position", new Float32BufferAttribute(position, 3));
-    const snowflakeColor = [
-      "white",
-      "lightcyan",
-      "paleturquoise",
-      "lightskyblue",
-      "lightblue",
-    ];
-    const textureLoader = new TextureLoader(loadingManager);
-    const material = new PointsMaterial({
-      size: 3,
-      map: textureLoader.load(snowpng),
-      blending: AdditiveBlending,
-      depthTest: false,
-      opacity: 0.7,
-      color: snowflakeColor[count],
-    });
 
-    super(geometry, material);
+    super(geometry, snowflakeMaterial);
+
+    this.fallSpeed = fallSpeed;
+    this.yLowerBound = yLowerBound;
   }
 
-  update(fallSpeed: number = 0.2, yLowerBound: number = -90) {
+  update(deltaTime: number) {
     const positions = this.geometry.attributes.position.array;
 
     for (let i = 0; i < positions.length; i += 3) {
-      positions[i + 1] -= fallSpeed;
+      positions[i + 1] -= this.fallSpeed * deltaTime;
 
       // Reset snowflake position if it falls below yLowerBound
-      if (positions[i + 1] < yLowerBound) {
+      if (positions[i + 1] < this.yLowerBound) {
         positions[i] = Math.random() * 600 - 300;
         positions[i + 1] = Math.random() * 600 - 300;
         positions[i + 2] = Math.random() * 600 - 300;
@@ -66,38 +58,56 @@ class Snowfall extends Points {
 }
 
 export default class Snowfalls extends Group {
-  private numSnowfalls: number = 2000 / snowpng.length;
-  private particles: Snowfall[] = [];
-  private snowflakeNum: number = snowpng.length;
+  private particles: Snowflakes[] = [];
+  private textureCount: number = snowpng.length;
 
-  constructor(loadingManager?: LoadingManager) {
+  constructor(count: number, loadingManager?: LoadingManager) {
     super();
-    const positions: number[][] = new Array();
-    for (let i = 0; i < this.snowflakeNum; i++) {
-      positions[i] = new Array();
-    }
-    for (let j = 0; j < this.snowflakeNum; j++) {
-      for (let i = 0; i < this.numSnowfalls; i++) {
-        positions[j].push(
+    // Load snowflake textures
+    const textureLoader = new TextureLoader(loadingManager);
+    const snowflakeMaterials: PointsMaterial[] = [];
+    const snowflakeColor = [
+      "white",
+      "lightcyan",
+      "paleturquoise",
+      "lightskyblue",
+      "lightblue",
+    ];
+    snowpng.forEach((png, i) => {
+      snowflakeMaterials.push(
+        new PointsMaterial({
+          size: 3,
+          map: textureLoader.load(png),
+          blending: AdditiveBlending,
+          depthTest: false,
+          opacity: 0.7,
+          color: snowflakeColor[i],
+        })
+      );
+    });
+
+    for (let i = 0; i < this.textureCount; i++) {
+      const positions: number[] = [];
+      for (let j = 0; j < count / this.textureCount; j++) {
+        positions.push(
           Math.random() * 600 - 300,
           Math.random() * 600 - 300,
           Math.random() * 600 - 300
         );
       }
-      var snowflake = new Snowfall(
-        new Float32Array(positions[j]),
-        snowpng[j],
-        j,
-        loadingManager
+      var snowflake = new Snowflakes(
+        new Float32Array(positions),
+        snowflakeMaterials[i],
+        1.0 * i,
       );
       this.add(snowflake);
       this.particles.push(snowflake);
     }
   }
 
-  update() {
-    for (let i = 0; i < this.snowflakeNum; i++) {
-      this.particles[i].update(i * 0.2);
+  update(deltaTime: number) {
+    for (let i = 0; i < this.textureCount; i++) {
+      this.particles[i].update(deltaTime);
     }
   }
 }

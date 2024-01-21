@@ -92,7 +92,7 @@ function init() {
     ground = new Ground(loadingManager);
     forest = new Forest(loadingManager);
     house = new House(loadingManager);
-    snowfalls = new Snowfalls(loadingManager);
+    snowfalls = new Snowfalls(2000, loadingManager);
 
     scene.add(snowman, sky, ground, forest, house, snowfalls);
   }
@@ -127,7 +127,7 @@ function init() {
 
   // ===== 📈 STATS & CLOCK =====
   {
-    //clock = new Clock();
+    clock = new Clock();
     stats = new Stats();
     document.body.appendChild(stats.dom);
   }
@@ -142,6 +142,9 @@ function init() {
 
     const cameraFolder = gui.addFolder("Camera");
     cameraFolder.add(cameraControls, "autoRotate");
+
+    const speedFolder = gui.addFolder("Speed");
+    speedFolder.add(snowman, "speed", 0, 1).name("snowman melting speed");
 
     // persist GUI state in local storage on changes
     gui.onFinishChange(() => {
@@ -165,19 +168,22 @@ function init() {
 }
 
 function animate() {
-  requestAnimationFrame(animate);
-  snowman.melt();
+  const delta = clock.getDelta();
+
   stats.update();
-  snowfalls.update();
-  directionalLight.position.copy(sky.updateSunPosition());
+
+  [snowman, snowfalls, sky].forEach((obj) => {
+    obj.update(delta);
+  });
+  directionalLight.position.copy(sky.sunDirectionValue);
 
   if (resizeRendererToDisplaySize(renderer)) {
     const canvas = renderer.domElement;
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
   }
-
   cameraControls.update();
 
   renderer.render(scene, camera);
+  requestAnimationFrame(animate);
 }

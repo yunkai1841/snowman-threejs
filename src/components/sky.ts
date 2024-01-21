@@ -2,6 +2,9 @@ import { BackSide, BoxGeometry, Mesh, ShaderMaterial, Vector3 } from "three";
 
 export default class Sky extends Mesh {
   private count: number = 0;
+  private sunDirection: Vector3 = new Vector3();
+  private accumulatedTime: number = 0;
+
   constructor() {
     const customShader = {
       uniforms: {
@@ -139,6 +142,10 @@ export default class Sky extends Mesh {
     super(geometry, material);
   }
 
+  get sunDirectionValue() {
+    return this.sunDirection;
+  }
+
   updateSunPosition() {
     const material = this.material as ShaderMaterial;
 
@@ -172,11 +179,22 @@ export default class Sky extends Mesh {
       material.uniforms.fSunPositionZ.value = 0;
       this.count -= 1;
     }
-    const sunDirection = new Vector3(
+    this.sunDirection = new Vector3(
       material.uniforms.fSunPositionX.value,
       material.uniforms.fSunPositionY.value,
       material.uniforms.fSunPositionZ.value
     ).normalize();
-    return sunDirection;
+  }
+
+  update(deltaTime: number) {
+    this.accumulatedTime += deltaTime;
+    // 0.1 is the time interval between each sun position update
+    if (this.accumulatedTime > 0.1) {
+      const timesUpdate = Math.floor(this.accumulatedTime / 0.1);
+      this.accumulatedTime %= 0.1;
+      for (let i = 0; i < timesUpdate; i++) {
+        this.updateSunPosition();
+      }
+    }
   }
 }
