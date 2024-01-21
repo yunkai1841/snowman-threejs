@@ -97,7 +97,7 @@ export default class Snowfalls extends Group {
       this.add(new Snowflakes(
         new Float32Array(positions),
         snowflakeMaterials[i],
-        1.0 * i,
+        4.0 * (i+1),
       ));
     }
   }

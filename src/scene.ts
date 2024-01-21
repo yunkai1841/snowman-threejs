@@ -96,6 +96,7 @@ function init() {
     snowfalls = new Snowfalls(2000, loadingManager);
 
     scene.add(snowman, sky, ground, forest, house, snowfalls);
+    //scene.add(ground, sky, snowfalls);
   }
 
   // ===== 🎥 CAMERA =====
