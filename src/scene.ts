@@ -89,7 +89,7 @@ function init() {
   {
     snowman = new SnowMan();
     sky = new Sky();
-    ground = new Ground(loadingManager); 
+    ground = new Ground(loadingManager);
     forest = new Forest(loadingManager);
     house = new House(loadingManager);
     snowfalls = new Snowfalls(loadingManager);
@@ -125,7 +125,6 @@ function init() {
     });
   }
 
-
   // ===== 📈 STATS & CLOCK =====
   {
     //clock = new Clock();
@@ -136,7 +135,7 @@ function init() {
   // ==== 🐞 DEBUG GUI ====
   {
     gui = new GUI({ title: "🐞 Debug GUI", width: 300 });
-   
+
     const lightsFolder = gui.addFolder("Lights");
     lightsFolder.add(directionalLight, "visible").name("directional light");
     lightsFolder.add(ambientLight, "visible").name("ambient light");
@@ -168,7 +167,7 @@ function init() {
 function animate() {
   requestAnimationFrame(animate);
   snowman.melt();
-  stats.update()
+  stats.update();
   snowfalls.update();
   directionalLight.position.copy(sky.updateSunPosition());
 
@@ -182,4 +181,3 @@ function animate() {
 
   renderer.render(scene, camera);
 }
-

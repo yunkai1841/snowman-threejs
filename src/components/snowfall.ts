@@ -19,7 +19,12 @@ import png5 from "../assets/images/snowflake5.png";
 const snowpng = [png1, png2, png3, png4, png5];
 
 class Snowfall extends Points {
-  constructor(position: Float32Array, snowpng: string, count: number, loadingManager?: LoadingManager) {
+  constructor(
+    position: Float32Array,
+    snowpng: string,
+    count: number,
+    loadingManager?: LoadingManager
+  ) {
     const geometry = new BufferGeometry();
     geometry.setAttribute("position", new Float32BufferAttribute(position, 3));
     const snowflakeColor = [
