@@ -58,7 +58,6 @@ class Snowflakes extends Points {
 }
 
 export default class Snowfalls extends Group {
-  private particles: Snowflakes[] = [];
   private textureCount: number = snowpng.length;
 
   constructor(count: number, loadingManager?: LoadingManager) {
@@ -95,19 +94,17 @@ export default class Snowfalls extends Group {
           Math.random() * 600 - 300
         );
       }
-      var snowflake = new Snowflakes(
+      this.add(new Snowflakes(
         new Float32Array(positions),
         snowflakeMaterials[i],
         1.0 * i,
-      );
-      this.add(snowflake);
-      this.particles.push(snowflake);
+      ));
     }
   }
 
   update(deltaTime: number) {
-    for (let i = 0; i < this.textureCount; i++) {
-      this.particles[i].update(deltaTime);
-    }
+    this.children.forEach((snowflakes) => {
+      (snowflakes as Snowflakes).update(deltaTime);
+    });
   }
 }

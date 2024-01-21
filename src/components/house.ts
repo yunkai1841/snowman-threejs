@@ -186,13 +186,14 @@ export default class House extends Group {
     const wall = new Wall(loadingManager);
     wall.position.set(this.x, this.y, this.z);
     //poll
-    const poll1 = new Poll(loadingManager);
+    const poll = new Poll(loadingManager);
+    const poll1 = poll.clone();
     poll1.position.set(this.x + 100, this.y, this.z + 100);
-    const poll2 = new Poll(loadingManager);
+    const poll2 = poll.clone();
     poll2.position.set(this.x - 100, this.y, this.z - 100);
-    const poll3 = new Poll(loadingManager);
+    const poll3 = poll.clone();
     poll3.position.set(this.x + 100, this.y, this.z - 100);
-    const poll4 = new Poll(loadingManager);
+    const poll4 = poll.clone();
     poll4.position.set(this.x - 100, this.y, this.z + 100);
     //door
     const door = new Door(loadingManager);

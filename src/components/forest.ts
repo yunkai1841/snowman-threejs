@@ -78,42 +78,43 @@ export default class Trees extends Group {
     for (let i = 0; i < this.treeNum; i++) {
       positions[i] = new Array();
     }
-    var count: number = 0;
+    let count: number = 0;
     for (let i = 0; i < this.treeNum; i++) {
-      var x = Math.random() * 2 - 1;
-      var y = Math.random() * 2 - 1;
+      const x = Math.random() * 2 - 1;
+      const y = Math.random() * 2 - 1;
       if (x ** 2 + y ** 2 >= this.noTreeField) {
         positions[i].push(x * 600, 100, y * 600);
         count += 1;
       }
     }
 
+    const trunk = new Trunk(loadingManager);
     for (let i = 0; i < count; i++) {
-      var x: number = positions[i][0];
-      var y: number = positions[i][1];
-      var z: number = positions[i][2];
+      const x: number = positions[i][0];
+      const y: number = positions[i][1];
+      const z: number = positions[i][2];
 
       //trunk
-      var trunk = new Trunk(loadingManager);
-      trunk.position.set(x, y, z);
+      const t = trunk.clone()
+      t.position.set(x, y, z);
 
       //leaf
-      var leaf1 = new Leaf(1);
+      const leaf1 = new Leaf(1);
       leaf1.position.set(x, y + 100, z);
-      var leaf2 = new Leaf(2);
+      const leaf2 = new Leaf(2);
       leaf2.position.set(x, y + 150, z);
-      var leaf3 = new Leaf(3);
+      const leaf3 = new Leaf(3);
       leaf3.position.set(x, y + 200, z);
 
       //snow
-      var snow1 = new Snow();
+      const snow1 = new Snow();
       snow1.position.set(x + 20, y + 200, z + 20);
-      var snow2 = new Snow();
+      const snow2 = new Snow();
       snow2.position.set(x - 35, y + 150, z + 35);
-      var snow3 = new Snow();
+      const snow3 = new Snow();
       snow3.position.set(x + 40, y + 50, z - 40);
 
-      this.add(trunk, leaf1, leaf2, leaf3, snow1, snow2, snow3);
+      this.add(t, leaf1, leaf2, leaf3, snow1, snow2, snow3);
     }
   }
 }
