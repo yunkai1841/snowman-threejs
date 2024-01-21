@@ -1,11 +1,9 @@
 import GUI from "lil-gui";
 import {
   AmbientLight,
-  BoxGeometry,
+  Clock,
   DirectionalLight,
   LoadingManager,
-  Mesh,
-  MeshStandardMaterial,
   PCFSoftShadowMap,
   PerspectiveCamera,
   Scene,
@@ -14,7 +12,6 @@ import {
 // import { DragControls } from "three/examples/jsm/controls/DragControls";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
-// import * as animations from "./helpers/animations";
 import { toggleFullScreen } from "./helpers/fullscreen";
 import { resizeRendererToDisplaySize } from "./helpers/responsiveness";
 import "./style.css";
@@ -33,21 +30,18 @@ let scene: Scene;
 let loadingManager: LoadingManager;
 let ambientLight: AmbientLight;
 let directionalLight: DirectionalLight;
-let cube: Mesh;
-let snowfalls: Snowfalls;
 let camera: PerspectiveCamera;
 let cameraControls: OrbitControls;
-// let dragControls: DragControls;
-// let axesHelper: AxesHelper;
-// let pointLightHelper: PointLightHelper;
-//let clock: Clock;
+let clock: Clock;
 let stats: Stats;
 let gui: GUI;
+
+let snowfalls: Snowfalls;
 let snowman: SnowMan;
 let sky: Sky;
 let forest: Forest;
 let house: House;
-// const animation = { enabled: false, play: true };
+let ground: Ground;
 
 init();
 animate();
@@ -93,29 +87,14 @@ function init() {
 
   // ===== 📦 OBJECTS =====
   {
-    const sideLength = 1;
-    const cubeGeometry = new BoxGeometry(sideLength, sideLength, sideLength);
-    const cubeMaterial = new MeshStandardMaterial({
-      color: "#f69f1f",
-      metalness: 0.5,
-      roughness: 0.7,
-    });
-    cube = new Mesh(cubeGeometry, cubeMaterial);
-    cube.castShadow = true;
-    cube.position.y = 0.5;
-
     snowman = new SnowMan();
     sky = new Sky();
-    const ground = new Ground(); 
-    forest = new Forest();
-    house = new House();
-    snowfalls = new Snowfalls();
+    ground = new Ground(loadingManager); 
+    forest = new Forest(loadingManager);
+    house = new House(loadingManager);
+    snowfalls = new Snowfalls(loadingManager);
 
-    scene.add(snowman);
-    scene.add(sky, ground);
-    scene.add(forest);
-    scene.add(house);
-    scene.add(snowfalls);
+    scene.add(snowman, sky, ground, forest, house, snowfalls);
   }
 
   // ===== 🎥 CAMERA =====
@@ -133,9 +112,9 @@ function init() {
   // ===== 🕹️ CONTROLS =====
   {
     cameraControls = new OrbitControls(camera, canvas);
-    cameraControls.target = cube.position.clone();
     cameraControls.enableDamping = true;
     cameraControls.autoRotate = false;
+    cameraControls.enableZoom = false;
     cameraControls.update();
 
     // Full screen

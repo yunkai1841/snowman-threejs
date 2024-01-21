@@ -1,4 +1,5 @@
 import {
+  LoadingManager,
   MathUtils,
   Mesh,
   MeshStandardMaterial,
@@ -15,9 +16,9 @@ import groundrough from "../assets/images/Snow_002_SD/Snow_002_ROUGH.jpg";
 import groundam from "../assets/images/Snow_002_SD/Snow_002_OCC.jpg";
 
 export default class Ground extends Mesh {
-  constructor() {
+  constructor(loadingManager?: LoadingManager) {
     const geometry = new PlaneGeometry(2000, 2000, 512, 512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(groundbase);
         const normalMapTexture = textureLoader.load(groundnormal);
         const heghitMapTexture = textureLoader.load(groundheight);

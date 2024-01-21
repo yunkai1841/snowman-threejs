@@ -6,6 +6,7 @@ import {
   AdditiveBlending,
   Float32BufferAttribute,
   Points,
+  LoadingManager,
 } from "three";
 
 // include star pngs
@@ -18,7 +19,7 @@ import png5 from "../assets/images/snowflake5.png";
 const snowpng = [png1, png2, png3, png4, png5];
 
 class Snowfall extends Points {
-  constructor(position: Float32Array, snowpng: string, count: number) {
+  constructor(position: Float32Array, snowpng: string, count: number, loadingManager?: LoadingManager) {
     const geometry = new BufferGeometry();
     geometry.setAttribute("position", new Float32BufferAttribute(position, 3));
     const snowflakeColor = [
@@ -28,7 +29,7 @@ class Snowfall extends Points {
       "lightskyblue",
       "lightblue",
     ];
-    const textureLoader = new TextureLoader();
+    const textureLoader = new TextureLoader(loadingManager);
     const material = new PointsMaterial({
       size: 3,
       map: textureLoader.load(snowpng),
@@ -64,7 +65,7 @@ export default class Snowfalls extends Group {
   private particles: Snowfall[] = [];
   private snowflakeNum: number = snowpng.length;
 
-  constructor() {
+  constructor(loadingManager?: LoadingManager) {
     super();
     const positions: number[][] = new Array();
     for (let i = 0; i < this.snowflakeNum; i++) {
@@ -81,7 +82,8 @@ export default class Snowfalls extends Group {
       var snowflake = new Snowfall(
         new Float32Array(positions[j]),
         snowpng[j],
-        j
+        j,
+        loadingManager
       );
       this.add(snowflake);
       this.particles.push(snowflake);

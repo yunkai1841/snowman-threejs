@@ -13,29 +13,14 @@ This repository start from template
 - [Demo](https://yunkai1841.github.io/snowman-threejs/)
 - [Jump to CLI commands](#cli-commands)
 
-## Stuff included in the `scene.ts`
+## Stuff included in the scene
 
-- [x] Geometry
-- [x] Material
-- [x] Mesh
-- [x] Ambient Light
-- [x] Point Light
-- [x] Camera
-- [x] Scene
-- [x] Canvas
-- [x] Renderer (WebGL)
-- [x] Loading Manager
-- [x] Orbit Controls
-- [x] Drag Controls
-- [x] Grid
-- [x] Antialias enabled
-- [x] Transparent canvas
-- [x] Responsive renderer and camera (to canvas size)
-- [x] Animation Loop
-- [x] Shadows
-- [x] Stats (FPS, ms)
-- [x] Full screen (double-click on canvas)
-- [x] Debug GUI
+- snowman
+- sky
+- ground
+- forest
+- house
+- snow
 
 ## Tech Stack
 

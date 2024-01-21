@@ -8,6 +8,7 @@ import {
     PlaneGeometry,
     BoxGeometry,
     SubtractiveBlending,
+    LoadingManager,
   } from "three";
 
 //wall: https://3dtextures.me/2021/03/26/stylized-bricks-001/
@@ -44,10 +45,10 @@ import dooram from "../assets/images/Wood_Gate_Fortified_003_SD/Wood_Gate_Fortif
 import smokeColor from "../assets/images/smoke.jpeg";
   //Roof
   class Roof extends Mesh {
-      constructor(){ 
+      constructor(loadingManager?: LoadingManager){ 
         const geometry = new ConeGeometry(170, 200, 100);
 
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(roofbase);
         const normalMapTexture = textureLoader.load(roofnormal);
         const heghitMapTexture = textureLoader.load(roofheight);
@@ -67,9 +68,9 @@ import smokeColor from "../assets/images/smoke.jpeg";
     }
     //Wall
     class Wall extends Mesh {
-        constructor(){
+        constructor(loadingManager?: LoadingManager){
         const geometry = new BoxGeometry(200,200,200,512,512,512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(wallbase);
         const normalMapTexture = textureLoader.load(wallnormal);
         const heghitMapTexture = textureLoader.load(wallheight);
@@ -90,9 +91,9 @@ import smokeColor from "../assets/images/smoke.jpeg";
 
 //poll
 class Poll extends Mesh {
-    constructor(){
+    constructor(loadingManager?: LoadingManager){
         const geometry = new CylinderGeometry(10, 10, 180, 50, 512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(pollbase);
         const normalMapTexture = textureLoader.load(pollnormal);
         const heghitMapTexture = textureLoader.load(pollheight);
@@ -113,9 +114,9 @@ class Poll extends Mesh {
 
 //Roof
 class Door extends Mesh {
-    constructor(){
+    constructor(loadingManager?: LoadingManager){
         const geometry = new PlaneGeometry(60, 120, 512, 512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(doorbase);
         const normalMapTexture = textureLoader.load(doornormal);
         const heghitMapTexture = textureLoader.load(doorheight);
@@ -136,9 +137,9 @@ class Door extends Mesh {
 
 //chimney
 class Chimney extends Mesh {
-    constructor() {
+    constructor(loadingManager?: LoadingManager) {
         const geometry = new CylinderGeometry(20, 20, 200, 50, 512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(chbase);
         const normalMapTexture = textureLoader.load(chnormal);
         const heghitMapTexture = textureLoader.load(chheight);
@@ -158,9 +159,9 @@ class Chimney extends Mesh {
 } 
 
 class Smoke extends Mesh {
-    constructor() {
+    constructor(loadingManager?: LoadingManager) {
         const geometry = new PlaneGeometry(200, 200, 512, 512);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(smokeColor);
         const material = new MeshStandardMaterial({
             map: baseTexture,
@@ -176,31 +177,31 @@ export default class House extends Group {
     private x:number = 100;
     private y:number = 0;
     private z:number = -250;
-    constructor() {
+    constructor(loadingManager?: LoadingManager) {
         super();
         //roof
-        const roof = new Roof();
+        const roof = new Roof(loadingManager);
         roof.position.set(this.x, this.y + 180, this.z);
         //wall
-        const wall = new Wall();
+        const wall = new Wall(loadingManager);
         wall.position.set(this.x,this.y,this.z);
         //poll
-        const poll1 = new Poll();
+        const poll1 = new Poll(loadingManager);
         poll1.position.set(this.x + 100, this.y, this.z + 100);
-        const poll2 = new Poll();
+        const poll2 = new Poll(loadingManager);
         poll2.position.set(this.x - 100, this.y, this.z - 100);
-        const poll3 = new Poll();
+        const poll3 = new Poll(loadingManager);
         poll3.position.set(this.x + 100, this.y, this.z - 100);
-        const poll4 = new Poll();
+        const poll4 = new Poll(loadingManager);
         poll4.position.set(this.x - 100, this.y, this.z + 100);
         //door
-        const door = new Door();
+        const door = new Door(loadingManager);
         door.position.set(this.x + 30, this.y-30, this.z + 105);
         //chimney
-        const chimney = new Chimney();
+        const chimney = new Chimney(loadingManager);
         chimney.position.set(this.x + 80, this.y + 100, this.z + 80);
         //smoke
-        const smoke = new Smoke();
+        const smoke = new Smoke(loadingManager);
         smoke.position.set(this.x + 80,this.y + 300,this.z+80);
 
         this.add(

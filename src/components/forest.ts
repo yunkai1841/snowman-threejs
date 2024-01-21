@@ -7,6 +7,7 @@ import {
     MeshLambertMaterial,
     MeshStandardMaterial,
     TextureLoader,
+    LoadingManager
   } from "three";
 
 //trunk: https://3dtextures.me/2022/02/25/bark-pine-003/
@@ -18,9 +19,9 @@ import trunkam from "../assets/images/Bark_Pine_003_SD/Bark_Pine_003_AmbientOccl
 
 //trunk
 class Trunk extends Mesh {
-    constructor(){
+    constructor(loadingManager?: LoadingManager){
         const trunkGeometry = new CylinderGeometry(5, 20, 500, 50);
-        const textureLoader = new TextureLoader();
+        const textureLoader = new TextureLoader(loadingManager);
         const baseTexture = textureLoader.load(trunkbase);
         const normalMapTexture = textureLoader.load(trunknormal);
         const heghitMapTexture = textureLoader.load(trunkheight);
@@ -71,7 +72,7 @@ export default class Trees extends Group {
     private treeNum: number = 100;
     private noTreeField:number = 0.25;
 
-    constructor() {
+    constructor(loadingManager?: LoadingManager) {
         super();
         const positions : number[][] = new Array();
         for (let i = 0; i < this.treeNum; i++) {
@@ -97,7 +98,7 @@ export default class Trees extends Group {
             var z:number = positions[i][2];
 
             //trunk
-            var trunk = new Trunk();
+            var trunk = new Trunk(loadingManager);
             trunk.position.set(x, y, z);
 
             //leaf
