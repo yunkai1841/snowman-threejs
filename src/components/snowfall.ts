@@ -23,6 +23,7 @@ class Snowflakes extends Points {
    * Snowflakes
    */
   private fallSpeed: number;
+  private initialSpeed: number;
   private yLowerBound: number;
   constructor(
     position: Float32Array,
@@ -36,6 +37,7 @@ class Snowflakes extends Points {
     super(geometry, snowflakeMaterial);
 
     this.fallSpeed = fallSpeed;
+    this.initialSpeed = fallSpeed;
     this.yLowerBound = yLowerBound;
   }
 
@@ -55,10 +57,15 @@ class Snowflakes extends Points {
 
     this.geometry.attributes.position.needsUpdate = true;
   }
+  
+  public set baseSpeed(v : number) {
+    this.fallSpeed = this.initialSpeed * v;
+  }
 }
 
 export default class Snowfalls extends Group {
   private textureCount: number = snowpng.length;
+  private _baseSpeed: number = 0.5;
 
   constructor(count: number, loadingManager?: LoadingManager) {
     super();
@@ -97,7 +104,7 @@ export default class Snowfalls extends Group {
       this.add(new Snowflakes(
         new Float32Array(positions),
         snowflakeMaterials[i],
-        4.0 * (i+1),
+        8.0 * (i+1),
       ));
     }
   }
@@ -106,5 +113,16 @@ export default class Snowfalls extends Group {
     this.children.forEach((snowflakes) => {
       (snowflakes as Snowflakes).update(deltaTime);
     });
+  }
+  
+  public set baseSpeed(v : number) {
+    this._baseSpeed = v;
+    this.children.forEach(element => {
+      (element as Snowflakes).baseSpeed = v;
+    });
+  }
+  
+  public get baseSpeed() : number {
+    return this._baseSpeed;
   }
 }

@@ -96,7 +96,6 @@ function init() {
     snowfalls = new Snowfalls(2000, loadingManager);
 
     scene.add(snowman, sky, ground, forest, house, snowfalls);
-    //scene.add(ground, sky, snowfalls);
   }
 
   // ===== 🎥 CAMERA =====
@@ -147,6 +146,8 @@ function init() {
 
     const speedFolder = gui.addFolder("Speed");
     speedFolder.add(snowman, "speed", 0, 1).name("snowman melting speed");
+    speedFolder.add(snowfalls, "baseSpeed", 0, 1).name("Snow fall base speed");
+    speedFolder.add(sky, "sunSpeed", 0, 1).name("sunset speed");
 
     // persist GUI state in local storage on changes
     gui.onFinishChange(() => {

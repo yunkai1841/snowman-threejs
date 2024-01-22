@@ -4,6 +4,7 @@ export default class Sky extends Mesh {
   private count: number = 0;
   private sunDirection: Vector3 = new Vector3();
   private accumulatedTime: number = 0;
+  public sunSpeed: number = 0.5;
 
   constructor() {
     const customShader = {
@@ -188,10 +189,10 @@ export default class Sky extends Mesh {
 
   update(deltaTime: number) {
     this.accumulatedTime += deltaTime;
-    // 0.1 is the time interval between each sun position update
-    if (this.accumulatedTime > 0.1) {
-      const timesUpdate = Math.floor(this.accumulatedTime / 0.1);
-      this.accumulatedTime %= 0.1;
+    const updateInterval = (1.05 - this.sunSpeed) * 0.2;
+    if (this.accumulatedTime > updateInterval) {
+      const timesUpdate = Math.floor(this.accumulatedTime / updateInterval);
+      this.accumulatedTime %= updateInterval;
       for (let i = 0; i < timesUpdate; i++) {
         this.updateSunPosition();
       }
