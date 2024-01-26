@@ -53,3 +53,18 @@ Run build
 ```bash
 npm run preview
 ```
+
+## Texture used
+
+- Snowflakes :  https://github.com/mrdoob/three.js/tree/dev/examples/textures/sprites
+
+- House
+  - Roof : https://3dtextures.me/2019/11/06/roof-tiles-terracotta-003/
+  - Wall : https://3dtextures.me/2021/03/26/stylized-bricks-001/
+  - Poll (trunk) : https://3dtextures.me/2022/02/25/bark-pine-003/
+  - Chimney : https://3dtextures.me/2022/04/03/wall-stone-023/
+  - Door : https://3dtextures.me/2020/05/29/wood-gate-fortified-003/
+  - Smoke : https://www.photo-ac.com/main/search?q=%E7%85%99+%E9%80%8F%E9%81%8E&srt=dlrank&qt=&pp=70&pt=B&p=1
+  
+
+  
