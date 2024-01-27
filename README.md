@@ -1,6 +1,7 @@
-# snowman threejs
-![GitHub deployments](https://img.shields.io/github/deployments/yunkai1841/snowman-threejs/github-pages?label=GitHub%20Pages&link=https%3A%2F%2Fyunkai1841.github.io%2Fsnowman-threejs%2F)
+# SNOWMAN threejs
+![GitHub deployments](https://img.shields.io/github/deployments/yunkai1841/snowman-threejs/github-pages?label=GitHub%20Pages)
 
+![demo](./demo/video.gif)
 
 An assignment for Computer graphics class
 
@@ -24,6 +25,7 @@ This repository start from template
 ## Tech Stack
 
 - Three.js
+- GLSL
 - TypeScript
 - Vite
 
@@ -65,6 +67,5 @@ npm run preview
   - Chimney : https://3dtextures.me/2022/04/03/wall-stone-023/
   - Door : https://3dtextures.me/2020/05/29/wood-gate-fortified-003/
   - Smoke : https://www.photo-ac.com/main/search?q=%E7%85%99+%E9%80%8F%E9%81%8E&srt=dlrank&qt=&pp=70&pt=B&p=1
-  
 
-  
+
